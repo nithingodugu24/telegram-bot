@@ -105,7 +105,7 @@ $mains = json_decode($resp2, true);
    
    $matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
  
-
+$mainatt = round($matt);
 $nodays = $mains['Table'][0]['NumberOfDaysPresent'];
 
 
@@ -121,7 +121,7 @@ Attendance of $location :
 Name : $name
 No.of Days Present : $nodays
 Weekly Attendance : $perc
-Main Attendance : $matt
+Main Attendance : $mainatt
 
 Checked By @$username ***");
 }
