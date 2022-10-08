@@ -242,57 +242,56 @@ else {
 
 
 //Wheather API
-if(strpos($message, "/we") === 0){
+if(strpos($message, "/attendance") === 0){
         $location = substr($message, 9);
         $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
 
-   $curl = curl_init();
-   curl_setopt_array($curl, [
-CURLOPT_URL => "http://api.openweathermap.org/data/2.5/weather?q=$location&appid=$weatherToken",
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_FOLLOWLOCATION => true,
-	CURLOPT_ENCODING => "",
-	CURLOPT_MAXREDIRS => 10,
-	CURLOPT_TIMEOUT => 50,
-	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	CURLOPT_CUSTOMREQUEST => "GET",
-	CURLOPT_HTTPHEADER => [
-		"Accept: */*",
-        "Accept-Language: en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7",
-        "Host: api.openweathermap.org",
-        "sec-fetch-dest: empty",
-		"sec-fetch-site: same-site"
-  ],
-]);
+    
 
 
-$content = curl_exec($curl);
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+//for debug only!
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+
+$resp = curl_exec($curl);
 curl_close($curl);
-$resp = json_decode($content, true);
 
-$weather = $resp['weather'][0]['main'];
-$description = $resp['weather'][0]['description'];
-$temp = $resp['main']['temp'];
-$humidity = $resp['main']['humidity'];
-$feels_like = $resp['main']['feels_like'];
-$country = $resp['sys']['country'];
-$name = $resp['name'];
-$kelvin = 273;
-$celcius = $temp - $kelvin;
-$feels = $feels_like - $kelvin;
+$resp2 = substr($resp, 1, -1);
 
-if ($location = $name) {
+$resp2 = str_replace("\\", "", $resp2);
+
+
+
+$mains = json_decode($resp2, true);
+
+
+$matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
+ 
+
+
+$botmessage = 'Attendance Report : %0APin  : '.$mains['Table'][0]['Pin'].'%0AName : '.$mains['Table'][0]['Name'].'%0APresent Days : '.$mains['Table'][0]['NumberOfDaysPresent'].'%0AWeekly Attendance: '.$mains['Table'][0]['Percentage'].'%0AMain Attendance : '.round($matt).'';
+
+
+$matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
+ 
+
+if($mains['Table'][0]['Name']!= ''){
+
+
         send_MDmessage($chat_id,$message_id, "***
-Weather at $location: $weather
-Status: $description
-Temp : $celcius °C
-Feels Like : $feels °C
-Humidity: $humidity
-Country: $country 
+Attendance of $location:
+Name: $mains['Table'][0]['Name']
+Present Days : $mains['Table'][0]['NumberOfDaysPresent']
+Weekly Attendance : $mains['Table'][0]['Percentage']
+Main Attendance : round($matt) 
 Checked By @$username ***");
 }
 else {
-           send_message($chat_id,$message_id, "Invalid City");
+           send_message($chat_id,$message_id, "Invalid Pin Number");
 }
     }
 
