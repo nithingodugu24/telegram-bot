@@ -103,7 +103,7 @@ $resp2 = str_replace("\\", "", $resp2);
 $mains = json_decode($resp2, true);
 
    $matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
- 
+ $mainatt = round($matt);
 
 
 
@@ -116,7 +116,7 @@ Attendance of $location :
 Name : $name
 No.of Days Present : $mains['Table'][0]['NumberOfDaysPresent']
 Weekly Attendance : $mains['Table'][0]['Percentage']
-Main Attendance : round($matt)
+Main Attendance : $mainatt
 Checked By @$username ***");
 }
 else {
