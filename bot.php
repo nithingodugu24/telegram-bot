@@ -82,7 +82,7 @@ if(strpos($message, "/weather") === 0){
 
    $curl = curl_init();
    curl_setopt_array($curl, [
-CURLOPT_URL => "http://api.openweathermap.org/data/2.5/weather?q=$location&appid=$weatherToken",
+CURLOPT_URL => "https://exams.sbtet.telangana.gov.in/API/api/PreExamination/getAttendanceReport?Pin=$location",
 	CURLOPT_RETURNTRANSFER => true,
 	CURLOPT_FOLLOWLOCATION => true,
 	CURLOPT_ENCODING => "",
@@ -100,29 +100,27 @@ CURLOPT_URL => "http://api.openweathermap.org/data/2.5/weather?q=$location&appid
 ]);
 
 
-$content = curl_exec($curl);
+$resp = curl_exec($curl);
+
 curl_close($curl);
-$resp = json_decode($content, true);
+$resp2 = substr($resp, 1, -1);
 
-$weather = $resp['weather'][0]['main'];
-$description = $resp['weather'][0]['description'];
-$temp = $resp['main']['temp'];
-$humidity = $resp['main']['humidity'];
-$feels_like = $resp['main']['feels_like'];
-$country = $resp['sys']['country'];
-$name = $resp['name'];
-$kelvin = 273;
-$celcius = $temp - $kelvin;
-$feels = $feels_like - $kelvin;
+$resp2 = str_replace("\\", "", $resp2);
 
-if ($location = $name) {
+$mains = json_decode($resp2, true);
+
+
+$name = $mains['Table'][0]['Name'];
+
+
+if ($name != '') {
         send_MDmessage($chat_id,$message_id, "***
-Weather at $location: $weather
-Status: $description
-Temp : $celcius °C
-Feels Like : $feels °C
-Humidity: $humidity
-Country: $country 
+Attendance of $location: 
+Status: $name
+Temp : 
+Feels Like : 
+Humidity: 
+Country:  
 Checked By @$username ***");
 }
 else {
