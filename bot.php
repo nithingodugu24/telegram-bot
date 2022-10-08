@@ -102,7 +102,8 @@ $resp2 = str_replace("\\", "", $resp2);
 
 $mains = json_decode($resp2, true);
 
-   
+   $matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
+ 
 
 
 
@@ -111,16 +112,15 @@ $name = $mains['Table'][0]['Name'];
 
 if ($name != '') {
         send_MDmessage($chat_id,$message_id, "***
-Attendance of $location: 
-Status: $name
-Temp : 
-Feels Like : 
-Humidity: 
-Country:  
+Attendance of $location : 
+Name : $name
+No.of Days Present : $mains['Table'][0]['NumberOfDaysPresent']
+Weekly Attendance : $mains['Table'][0]['Percentage']
+Main Attendance : round($matt)
 Checked By @$username ***");
 }
 else {
-           send_message($chat_id,$message_id, "Invalid ".$name."");
+           send_message($chat_id,$message_id, "Invalid Pin number");
 }
     }
 
