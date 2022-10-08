@@ -126,7 +126,7 @@ Country: $country
 Checked By @$username ***");
 }
 else {
-           send_message($chat_id,$message_id, "Invalid ".$location);
+           send_message($chat_id,$message_id, "Invalid ".substr($message, 9)."");
 }
     }
 
