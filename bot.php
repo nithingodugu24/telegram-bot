@@ -247,6 +247,7 @@ if(strpos($message, "/attendance") === 0){
         $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
 
     
+$url = "https://exams.sbtet.telangana.gov.in/API/api/PreExamination/getAttendanceReport?Pin=".$location."";
 
 
 $curl = curl_init($url);
