@@ -242,7 +242,7 @@ else {
 
 
 //Wheather API
-if(strpos($message, "/weather2") === 0){
+if(strpos($message, "/we") === 0){
         $location = substr($message, 9);
         $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
 
