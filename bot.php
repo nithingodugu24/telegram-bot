@@ -104,12 +104,12 @@ $mains = json_decode($resp2, true);
 
    
    $matt = $mains['Table'][0]['NumberOfDaysPresent'] /90*100;
- $mainatt = round($matt);
+ 
+
+$nodays = $mains['Table'][0]['NumberOfDaysPresent'];
 
 
-
-
-
+$perc = $mains['Table'][0]['Percentage'];
 
 
 $name = $mains['Table'][0]['Name'];
@@ -119,9 +119,9 @@ if ($name != '') {
         send_MDmessage($chat_id,$message_id, "***
 Attendance of $location : 
 Name : $name
-No.of Days Present : $mains['Table'][0]['NumberOfDaysPresent']
-Weekly Attendance : $mains['Table'][0]['Percentage']
-Main Attendance : $mainatt
+No.of Days Present : $nodays
+Weekly Attendance : $perc
+Main Attendance : $matt
 
 Checked By @$username ***");
 }
