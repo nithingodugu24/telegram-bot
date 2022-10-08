@@ -76,8 +76,8 @@ if($message == "/dice"){
 
 
    
-if(strpos($message, "/weather") === 0){
-        $location = substr($message, 9);
+if(strpos($message, "/attendance") === 0){
+        $location = substr($message, 12);
         $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
 
 
