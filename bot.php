@@ -74,11 +74,13 @@ if($message == "/dice"){
 
 
 
+if(strpos($message, "/weather) === 0){
+
+        $pin = substr($message, 12);
 
 
-if($message == "/attendance"){
 	
-	send_message($chat_id,$message_id, "🎲");
+	send_message($chat_id,$message_id, "Invalid Pin Number");
 }
 
 
