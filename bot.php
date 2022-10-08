@@ -244,9 +244,12 @@ else {
 //Wheather API
 if(strpos($message, "/attendance") === 0){
         $location = substr($message, 9);
-        $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
+        
 
-    
+if( $location == ''){
+send_message($chat_id,$message_id, "Enter Pin Number");
+}else{
+
 $url = "https://exams.sbtet.telangana.gov.in/API/api/PreExamination/getAttendanceReport?Pin=".$location."";
 
 
@@ -293,7 +296,7 @@ Checked By @$username ***");
 }
 else {
            send_message($chat_id,$message_id, "Invalid Pin Number");
-}
+}}
     }
 
 
