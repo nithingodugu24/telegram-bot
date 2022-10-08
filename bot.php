@@ -70,7 +70,20 @@ if($message == "/dice"){
         sendDice($chat_id,$message_id, "🎲");
     }
 
+//Attendance Starts here
 
+
+
+
+
+if($message == "/attendance"){
+	
+	send_message($chat_id,$message_id, "🎲");
+}
+
+
+
+//Attendance Ends here
     
 
 if($message == "/toss"){
