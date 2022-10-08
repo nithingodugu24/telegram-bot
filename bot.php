@@ -74,14 +74,7 @@ if($message == "/dice"){
 
 
 
-if(strpos($message, "/attendance) === 0){
 
-        $pin = substr($message, 12);
-
-
-	
-	send_message($chat_id,$message_id, $pin);
-}
 
 
 
