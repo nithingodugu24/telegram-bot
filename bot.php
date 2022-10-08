@@ -80,34 +80,30 @@ if(strpos($message, "/weather") === 0){
         $location = substr($message, 9);
         $weatherToken = "89ef8a05b6c964f4cab9e2f97f696c81"; ///get api key from openweathermap.org
 
-   $curl = curl_init();
-   curl_setopt_array($curl, [
-CURLOPT_URL => "https://exams.sbtet.telangana.gov.in/API/api/PreExamination/getAttendanceReport?Pin=$location",
-	CURLOPT_RETURNTRANSFER => true,
-	CURLOPT_FOLLOWLOCATION => true,
-	CURLOPT_ENCODING => "",
-	CURLOPT_MAXREDIRS => 10,
-	CURLOPT_TIMEOUT => 50,
-	CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-	CURLOPT_CUSTOMREQUEST => "GET",
-	CURLOPT_HTTPHEADER => [
-		"Accept: */*",
-        "Accept-Language: en-GB,en-US;q=0.9,en;q=0.8,hi;q=0.7",
-        "Host: api.openweathermap.org",
-        "sec-fetch-dest: empty",
-		"sec-fetch-site: same-site"
-  ],
-]);
 
+$url = "https://exams.sbtet.telangana.gov.in/API/api/PreExamination/getAttendanceReport?Pin=".$location."";
+
+$curl = curl_init($url);
+curl_setopt($curl, CURLOPT_URL, $url);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+//for debug only!
+curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 
 $resp = curl_exec($curl);
-
 curl_close($curl);
+
 $resp2 = substr($resp, 1, -1);
 
 $resp2 = str_replace("\\", "", $resp2);
 
+
+
 $mains = json_decode($resp2, true);
+
+   
+
 
 
 $name = $mains['Table'][0]['Name'];
