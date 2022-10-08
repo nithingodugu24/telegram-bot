@@ -124,7 +124,7 @@ Country:
 Checked By @$username ***");
 }
 else {
-           send_message($chat_id,$message_id, "Invalid ".substr($message, 9)."");
+           send_message($chat_id,$message_id, "Invalid ".$name."");
 }
     }
 
